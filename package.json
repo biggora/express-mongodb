@@ -1,7 +1,7 @@
 {
   "name": "express-mongodb",
   "description": "MongoDB session store for ExpressJS",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/biggora/express-mongodb/",
   "repository": {
     "type": "git",
@@ -25,11 +25,11 @@
     "node": ">=0.5"
   },
   "dependencies": {
-      "express": "2.0.0",
-      "mongoose": "2.4.0"
+      "express": ">= 2.5.1",
+      "mongoose": ">= 2.5.10"
   },
   "devDependencies": {
-      "express": "2.0.0",
-      "mongoose": "2.4.0"
+      "express": ">= 2.5.1",
+      "mongoose": ">= 2.5.10"
   }
 }

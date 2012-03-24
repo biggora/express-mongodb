@@ -1,0 +1,35 @@
+{
+  "name": "express-mongodb",
+  "description": "MongoDB session store for ExpressJS",
+  "version": "0.0.1",
+  "homepage": "https://github.com/biggora/express-mongodb/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/biggora/express-mongodb.git"
+  },
+  "author": "Aleksej Gordejev <aleksej@gordejev.lv> (https://github.com/biggora/)",
+  "keywords": [
+    "mongodb",
+    "session",
+    "store",
+    "express",
+    "middleware",
+    "mongoose"
+  ],
+  "main": "./index.js",
+  "directories": {
+    "lib": "lib",
+    "tests": "tests"
+  },
+  "engines": {
+    "node": ">=0.5"
+  },
+  "dependencies": {
+      "express": "2.0.0",
+      "mongoose": "2.4.0"
+  },
+  "devDependencies": {
+      "express": "2.0.0",
+      "mongoose": "2.4.0"
+  }
+}

@@ -40,6 +40,18 @@ app.get('/', function(req, res){
 app.listen(3000);
 ```
 
+## In the Wild
+
+The following projects use express-mongodb.
+
+If you are using express-mongodb in a project, app, or module, get on the list below
+by getting in touch or submitting a pull request with changes to the README.
+
+### Startups & Apps
+
+- [TViMama](http://tvimama.com/)
+- [GorkaTV](https://gorkatv.com/)
+
 
 ## Author
 

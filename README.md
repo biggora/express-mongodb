@@ -4,6 +4,9 @@ express-mongodb is a MongoDB session store for [ExpressJS](http://expressjs.com/
 
 ## Installation
 
+Installation is done using the Node Package Manager (npm). If you don't have npm installed on your system you can download it from [npmjs.org](http://npmjs.org/)
+To install express-mongodb:
+
     $ npm install -g express-mongodb
 
 ## Usage overview

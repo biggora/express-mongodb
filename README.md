@@ -14,24 +14,28 @@ To install express-mongodb:
 ```js
 var express = require('express'),
 mongoose = require('mongoose'),
-MongooseStore = require('express-mongodb')(express),
-Session = mongoose.model('Session'),
+MongooseStore = require("./../lib/express-mongodb")(express),
 app = express.createServer(),
-db = "mongodb://localhost:27017/test";
+db = "mongodb://localhost:27017/test",
+options = {
+    collection: 'mysession',
+    clear_interval: 60 // 1 min
+};
 
 mongoose.connect(db);
 
 app.use(express.cookieParser());
 app.use(express.session({
     cookie: {
-        maxAge: 31557600000
+        maxAge: 60000 // 1 min as example
     },
     secret: "Wild Express-MongoDB",
     store: new MongooseStore()
 }));
 
 app.get('/', function(req, res){
-    Session.find({}, function (err, sessions) {
+    var collection = mongoose.model(options.collection);
+    collection.find({}, function (err, sessions) {
         if (err) console.log(err);
         res.send(sessions);
     });
@@ -39,6 +43,10 @@ app.get('/', function(req, res){
 
 app.listen(3000);
 ```
+
+## Options
+  * `collection` Mongoose collection to host sessions. 'sessions' by default.
+  * `clear_interval` sec. to check expired sessions to remove on db
 
 ## In the Wild
 

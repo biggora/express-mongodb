@@ -30,7 +30,7 @@ app.use(express.session({
         maxAge: 60000 // 1 min as example
     },
     secret: "Wild Express-MongoDB",
-    store: new MongooseStore()
+    store: new MongooseStore(options)
 }));
 
 app.get('/', function(req, res){

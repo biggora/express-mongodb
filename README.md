@@ -1,4 +1,4 @@
-[![build status](https://secure.travis-ci.org/biggora/express-mongodb.png)](http://travis-ci.org/biggora/express-mongodb)
+[![Build Status](https://travis-ci.org/biggora/express-mongodb.png?branch=master)](https://travis-ci.org/biggora/express-mongodb)
 # MongoDB Session Storage for [ExpressJS](http://expressjs.com/)
 
 express-mongodb is a MongoDB session store for [ExpressJS](http://expressjs.com/) backed by [mongoosejs](http://mongoosejs.com/)

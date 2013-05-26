@@ -62,6 +62,15 @@ by getting in touch or submitting a pull request with changes to the README.
 - [GorkaTV](https://gorkatv.com/)
 
 
+### Recommend extensions
+
+- [Bootstrap Fancy File Plugin](http://biggora.github.io/bootstrap-fancyfile/)
+- [Bootstrap Ajax Typeahead Plugin](https://github.com/biggora/bootstrap-ajax-typeahead)
+- [TrinteJS - Javascrpt MVC Framework for Node.JS](http://www.trintejs.com/)
+- [CaminteJS - Cross-db ORM for NodeJS](http://www.camintejs.com/)
+- [Middleware exposing user-agent for NodeJS](https://github.com/biggora/express-useragent)
+- [2CO NodeJS adapter for 2checkout API payment gateway](https://github.com/biggora/2co)
+
 ## Author
 
 Aleksej Gordejev (aleksej@gordejev.lv).

@@ -32,7 +32,7 @@
   },
   "files": [
     "dist",
-    "tests/store.js",
+    "demo/store.js",
     "README.md",
     "LICENSE"
   ],

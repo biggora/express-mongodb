@@ -144,7 +144,7 @@ Start MongoDB locally at `mongodb://localhost:27017/test`, build the package, an
 
 ```sh
 npm run build
-node tests/store.js
+node demo/store.js
 ```
 
 Open `http://localhost:3000`. The app writes sessions to the `mysession` collection and returns the current session counter plus stored session count.

@@ -3,15 +3,18 @@ import session from "express-session";
 import { MongoClient } from "mongodb";
 import { MongoSessionStore } from "../dist/esm/index.js";
 
-var app = express();
-var url = "mongodb://localhost:27017/test";
-var options = {
+const app = express();
+const url = process.env.MONGODB_URI || "mongodb://localhost:27017/test";
+const port = process.env.PORT || 3000;
+const options = {
     collectionName: "mysession",
     clearIntervalSeconds: 60
 };
 
 async function main() {
-    var client = new MongoClient(url);
+    const client = new MongoClient(url, {
+        serverSelectionTimeoutMS: 5000
+    });
     await client.connect();
 
     app.use(session({
@@ -33,7 +36,7 @@ async function main() {
         try {
             req.session.views = (req.session.views || 0) + 1;
 
-            var sessions = await client
+            const sessions = await client
                 .db("test")
                 .collection(options.collectionName)
                 .find({})
@@ -48,12 +51,13 @@ async function main() {
         }
     });
 
-    app.listen(3000, function() {
-        console.log("express-mongodb smoke app listening on http://localhost:3000");
+    app.listen(port, function() {
+        console.log("express-mongodb smoke app listening on http://localhost:" + port);
     });
 }
 
 main().catch(function(err) {
     console.error(err);
+    console.error("Start MongoDB or set MONGODB_URI before running demo/store.js.");
     process.exitCode = 1;
 });

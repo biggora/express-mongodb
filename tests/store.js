@@ -1,44 +1,59 @@
-/**
- *
- * @revision    $Id: store.js 2012-03-24 18:14:00 Aleksey $
- * @created     2012-03-24 18:27:10
- * @category    Express Helpers
- * @package     express-mongodb
- * @version     0.0.2
- * @copyright   Copyright (c) 2009-2012 - All rights reserved.
- * @license     MIT License
- * @author      Alexey Gordeyev IK <aleksej@gordejev.lv>
- * @link        http://www.gordejev.lv
- *
- */
+import express from "express";
+import session from "express-session";
+import { MongoClient } from "mongodb";
+import { MongoSessionStore } from "../dist/esm/index.js";
 
-var express = require('express'),
-mongoose = require('mongoose'),
-MongooseStore = require("./../lib/express-mongodb")(express),
-app = express.createServer(),
-db = "mongodb://localhost:27017/test",
-options = {
-    collection: 'mysession',
-    clear_interval: 60 // 1 min
+var app = express();
+var url = "mongodb://localhost:27017/test";
+var options = {
+    collectionName: "mysession",
+    clearIntervalSeconds: 60
 };
 
-mongoose.connect(db);
+async function main() {
+    var client = new MongoClient(url);
+    await client.connect();
 
-app.use(express.cookieParser());
-app.use(express.session({
-    cookie: {
-        maxAge: 60000 // 1 min
-    },
-    secret: "Wild Express-MongoDB",
-    store: new MongooseStore(options)
-}));
+    app.use(session({
+        cookie: {
+            maxAge: 60000
+        },
+        secret: "Wild Express-MongoDB",
+        resave: false,
+        saveUninitialized: true,
+        store: new MongoSessionStore({
+            client: client,
+            dbName: "test",
+            collectionName: options.collectionName,
+            clearIntervalSeconds: options.clearIntervalSeconds
+        })
+    }));
 
-app.get('/', function(req, res){
-    var collection = mongoose.model(options.collection);
-    collection.find({}, function (err, sessions) {
-        if (err) console.log(err);
-        res.send(sessions);
+    app.get("/", async function(req, res, next) {
+        try {
+            req.session.views = (req.session.views || 0) + 1;
+
+            var sessions = await client
+                .db("test")
+                .collection(options.collectionName)
+                .find({})
+                .toArray();
+
+            res.json({
+                views: req.session.views,
+                sessions: sessions
+            });
+        } catch (err) {
+            next(err);
+        }
     });
-});
 
-app.listen(3000);
+    app.listen(3000, function() {
+        console.log("express-mongodb smoke app listening on http://localhost:3000");
+    });
+}
+
+main().catch(function(err) {
+    console.error(err);
+    process.exitCode = 1;
+});

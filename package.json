@@ -1,35 +1,63 @@
 {
   "name": "express-mongodb",
-  "description": "MongoDB session store for ExpressJS",
-  "version": "0.0.4",
+  "description": "MongoDB session store for Express",
+  "version": "1.0.0",
   "homepage": "https://github.com/biggora/express-mongodb/",
   "repository": {
     "type": "git",
-    "url": "git://github.com/biggora/express-mongodb.git"
+    "url": "git+https://github.com/biggora/express-mongodb.git"
   },
   "author": "Aleksej Gordejev <aleksej@gordejev.lv> (https://github.com/biggora/)",
+  "license": "MIT",
   "keywords": [
     "mongodb",
     "session",
     "store",
     "express",
     "middleware",
-    "mongoose"
+    "mongoose",
+    "express-session"
   ],
-  "main": "./index.js",
-  "directories": {
-    "lib": "lib",
-    "tests": "tests"
+  "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./package.json": "./package.json"
   },
+  "files": [
+    "dist",
+    "tests/store.js",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
-    "node": ">=0.5"
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && node scripts/write-cjs-wrapper.mjs",
+    "prepack": "npm run build",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "typecheck": "tsc -p tsconfig.esm.json --noEmit"
+  },
+  "peerDependencies": {
+    "express-session": "^1.19.0"
   },
   "dependencies": {
-      "express": ">= 2.5.1 < 3.0.0",
-      "mongoose": ">= 2.4.0 < 2.5.20"
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.2"
   },
   "devDependencies": {
-      "express": ">= 2.5.1 < 3.0.0",
-      "mongoose": ">= 2.4.0 < 2.5.20"
+    "@types/express-session": "^1.18.2",
+    "@types/node": "^24.0.0",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mongodb-memory-server": "^11.1.0",
+    "typescript": "^5.8.0"
   }
 }

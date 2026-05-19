@@ -22,8 +22,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
           registry-url: https://registry.npmjs.org
+
+      - name: Use npm 11 for trusted publishing
+        run: npm install -g npm@^11.5.1
+
+      - name: Print runtime versions
+        run: |
+          node --version
+          npm --version
+          npm config get registry
 
       - name: Install dependencies
         run: npm ci
@@ -51,15 +59,16 @@ jobs:
       - name: Verify package contents
         run: npm pack --dry-run
 
-      - name: Publish package
+      - name: Verify GitHub OIDC is available
+        run: |
+          test -n "$ACTIONS_ID_TOKEN_REQUEST_URL"
+          test -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN"
+
+      - name: Publish package with trusted publishing
         run: |
           TAG_VERSION="${GITHUB_REF_NAME#v}"
           TAG_ARG=""
           if echo "$TAG_VERSION" | grep -q '-'; then
             TAG_ARG="--tag next"
           fi
-          npm publish --provenance --access public $TAG_ARG
-        # OIDC trusted publishing: configure the npm-publish environment on npm.
-        # To fall back to token-based publishing, remove --provenance and set:
-        # env:
-        #   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm publish --access public $TAG_ARG

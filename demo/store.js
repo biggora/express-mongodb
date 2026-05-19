@@ -1,7 +1,7 @@
 import express from "express";
 import session from "express-session";
-import { MongoClient } from "mongodb";
-import { MongoSessionStore } from "../dist/esm/index.js";
+import {MongoClient} from "mongodb";
+import {MongoSessionStore} from "../dist/esm/index.js";
 
 const app = express();
 const url = process.env.MONGODB_URI || "mongodb://localhost:27017/test";
@@ -32,7 +32,7 @@ async function main() {
         })
     }));
 
-    app.get("/", async function(req, res, next) {
+    app.get("/", async function (req, res, next) {
         try {
             req.session.views = (req.session.views || 0) + 1;
 
@@ -51,12 +51,12 @@ async function main() {
         }
     });
 
-    app.listen(port, function() {
+    app.listen(port, function () {
         console.log("express-mongodb smoke app listening on http://localhost:" + port);
     });
 }
 
-main().catch(function(err) {
+main().catch(function (err) {
     console.error(err);
     console.error("Start MongoDB or set MONGODB_URI before running demo/store.js.");
     process.exitCode = 1;

@@ -1,3 +1,7 @@
+[![npm version](https://img.shields.io/npm/v/express-mongodb.svg)](https://www.npmjs.com/package/express-mongodb)
+[![CI](https://img.shields.io/github/actions/workflow/status/biggora/express-mongodb/ci.yml?branch=master)](https://github.com/biggora/express-mongodb/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # express-mongodb
 
 MongoDB-backed session stores for [express-session](https://www.npmjs.com/package/express-session).
